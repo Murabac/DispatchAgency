@@ -2,7 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
+        "build": "echo Skipping Vite build - Filament assets are published via artisan",
+        "build:vite": "vite build",
         "dev": "vite"
     },
     "devDependencies": {

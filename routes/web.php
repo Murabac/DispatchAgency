@@ -4,7 +4,7 @@ use App\Http\Controllers\DocumentPdfController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/admin');
+    return redirect('/admin/login');
 });
 
 Route::middleware(['web', 'auth'])->group(function () {

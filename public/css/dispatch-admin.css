@@ -1,0 +1,555 @@
+/* Dispatch Logistics — modern admin chrome */
+
+:root {
+    --dl-ink: #101114;
+    --dl-ink-elevated: #16171c;
+    --dl-ink-hover: #1c1e26;
+    --dl-line: rgba(255, 255, 255, 0.08);
+    --dl-text: #f4f4f5;
+    --dl-muted: #9ca3af;
+    --dl-accent: #4ba3c7;
+    --dl-accent-soft: rgba(75, 163, 199, 0.16);
+    --dl-page: #f3f4f6;
+    --dl-radius: 0.875rem;
+}
+
+/* ========== App shell ========== */
+.fi-body,
+.fi-main-ctn {
+    background: var(--dl-page) !important;
+}
+
+.fi-main {
+    max-width: none;
+    width: 100%;
+}
+
+.fi-page > section,
+.fi-page-content {
+    gap: 1.25rem;
+}
+
+/* Softer content cards / sections */
+.fi-section,
+.fi-ta-ctn,
+.fi-wi-stats-overview-stat,
+.fi-simple-page {
+    border-radius: var(--dl-radius) !important;
+    box-shadow: 0 1px 2px rgba(16, 17, 20, 0.04), 0 8px 24px rgba(16, 17, 20, 0.04) !important;
+    border: 1px solid rgba(16, 17, 20, 0.06) !important;
+}
+
+.fi-section-content-ctn,
+.fi-section-header {
+    border-color: rgba(16, 17, 20, 0.06) !important;
+}
+
+.fi-header-heading {
+    letter-spacing: -0.02em;
+    font-weight: 650 !important;
+}
+
+/* ========== Sidebar ========== */
+.fi-sidebar,
+aside.fi-sidebar,
+.fi-main-sidebar {
+    background:
+        linear-gradient(180deg, #12131a 0%, var(--dl-ink) 48%, #0c0d11 100%) !important;
+    border-right: 1px solid var(--dl-line) !important;
+}
+
+.fi-sidebar-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--dl-line) !important;
+    padding-block: 1rem !important;
+}
+
+.fi-sidebar-nav {
+    background: transparent !important;
+    padding-inline: 0.55rem !important;
+}
+
+.fi-sidebar-item-button {
+    color: #d1d5db !important;
+    border-radius: 0.75rem !important;
+    margin-block: 0.1rem;
+    padding-inline: 0.55rem !important;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.fi-sidebar-group {
+    margin-bottom: 0.35rem;
+}
+
+.fi-sidebar-group-label {
+    color: #6b7280 !important;
+    font-size: 0.68rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    padding-inline: 0.65rem !important;
+}
+
+.fi-sidebar-item-label {
+    color: inherit !important;
+    font-weight: 500 !important;
+}
+
+.fi-sidebar-item-icon {
+    color: #8b93a7 !important;
+    transition: color 0.15s ease !important;
+}
+
+.fi-sidebar-item-button:hover {
+    background-color: var(--dl-ink-hover) !important;
+    color: #ffffff !important;
+}
+
+.fi-sidebar-item-button:hover .fi-sidebar-item-icon {
+    color: var(--dl-accent) !important;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-button,
+.fi-sidebar-item.fi-active > .fi-sidebar-item-button {
+    background: linear-gradient(90deg, var(--dl-accent-soft), rgba(255, 255, 255, 0.03)) !important;
+    color: #ffffff !important;
+    box-shadow: inset 3px 0 0 var(--dl-accent);
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-icon,
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+    color: var(--dl-accent) !important;
+}
+
+.fi-sidebar-group-collapse-button,
+.fi-sidebar-group-button {
+    color: #9ca3af !important;
+    border-radius: 0.75rem !important;
+}
+
+.fi-sidebar-close-overlay {
+    background-color: rgba(10, 11, 14, 0.45) !important;
+    backdrop-filter: blur(2px);
+}
+
+/* ========== Top bar ========== */
+.fi-topbar,
+.fi-topbar > nav,
+header.fi-topbar {
+    background: #101114 !important;
+    /* Avoid expensive backdrop blur — it delays first dropdown paint */
+    backdrop-filter: none;
+    border-bottom: 1px solid var(--dl-line) !important;
+    color: var(--dl-text) !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.fi-topbar .fi-icon-btn,
+.fi-topbar .fi-icon-btn-icon,
+.fi-topbar-open-sidebar-btn,
+.fi-topbar-close-sidebar-btn {
+    color: #e5e7eb !important;
+    border-radius: 0.65rem !important;
+}
+
+.fi-topbar .fi-user-menu-trigger {
+    color: #e5e7eb !important;
+    border-radius: 0.65rem !important;
+}
+
+.fi-topbar .fi-icon-btn:hover,
+.fi-topbar-open-sidebar-btn:hover,
+.fi-topbar-close-sidebar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* User menu must stay readable on first open (do not inherit topbar light text) */
+.fi-user-menu {
+    position: relative;
+}
+
+.fi-user-menu .fi-dropdown-panel {
+    z-index: 50 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    transition: none !important;
+}
+
+.fi-user-menu .fi-dropdown-panel,
+.fi-user-menu .fi-dropdown-panel * {
+    color: inherit;
+}
+
+.fi-user-menu .fi-dropdown-header,
+.fi-user-menu .fi-dropdown-list-item,
+.fi-user-menu .fi-dropdown-list-item-label,
+.fi-user-menu .fi-dropdown-list-item-icon {
+    color: #111827 !important;
+}
+
+.fi-user-menu .fi-dropdown-header-label {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+}
+
+.fi-user-menu-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.fi-user-menu-name {
+    font-weight: 600;
+    color: #111827 !important;
+    line-height: 1.25;
+}
+
+.fi-user-menu-email {
+    font-size: 0.78rem;
+    font-weight: 450;
+    color: #6b7280 !important;
+    line-height: 1.25;
+    word-break: break-all;
+}
+
+.fi-global-search-field input,
+.fi-topbar input[type="search"],
+.fi-topbar input {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border-radius: 0.75rem !important;
+}
+
+.fi-global-search-field input::placeholder {
+    color: #6b7280 !important;
+}
+
+/* ========== Tables ========== */
+.fi-ta-ctn {
+    overflow: hidden;
+    background: #ffffff !important;
+}
+
+.fi-ta-header-ctn {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(16, 17, 20, 0.06) !important;
+}
+
+.fi-ta-header {
+    background: transparent !important;
+}
+
+.fi-ta-header-heading {
+    letter-spacing: -0.02em;
+    font-weight: 650 !important;
+}
+
+.fi-ta-table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.fi-ta-table thead,
+.fi-ta-table thead tr {
+    background: linear-gradient(180deg, #15161c 0%, #101114 100%) !important;
+}
+
+.fi-ta-header-cell,
+.fi-ta-table thead th {
+    background: transparent !important;
+    color: #f3f4f6 !important;
+    border-bottom: none !important;
+    border-color: transparent !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+}
+
+.fi-ta-header-cell-label,
+.fi-ta-header-cell span,
+.fi-ta-header-cell button,
+.fi-ta-header-cell a {
+    color: #e5e7eb !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+}
+
+.fi-ta-header-cell-sort-btn,
+.fi-ta-header-cell-sort-icon,
+.fi-ta-header-cell .fi-icon-btn,
+.fi-ta-header-cell .fi-icon-btn-icon {
+    color: #9ca3af !important;
+}
+
+.fi-ta-table tbody .fi-ta-cell,
+.fi-ta-table tbody td {
+    background-color: #ffffff;
+    border-color: rgba(16, 17, 20, 0.05) !important;
+}
+
+.fi-ta-row:hover .fi-ta-cell,
+.fi-ta-table tbody tr:hover td {
+    background-color: #f8fafc !important;
+}
+
+/* Badges / pills feel cleaner */
+.fi-badge {
+    border-radius: 999px !important;
+    font-weight: 560 !important;
+}
+
+/* Primary actions */
+.fi-btn-color-primary {
+    box-shadow: 0 1px 2px rgba(75, 163, 199, 0.25), 0 6px 16px rgba(75, 163, 199, 0.18) !important;
+}
+
+/* ========== Login ========== */
+.fi-simple-layout {
+    background:
+        radial-gradient(900px 420px at 50% -10%, rgba(75, 163, 199, 0.22), transparent 60%),
+        radial-gradient(600px 300px at 85% 10%, rgba(16, 17, 20, 0.08), transparent 50%),
+        linear-gradient(180deg, #eef1f5 0%, #e7eaef 100%) !important;
+}
+
+.fi-simple-main,
+.fi-simple-page {
+    border-radius: 1.25rem !important;
+    box-shadow: 0 10px 40px rgba(16, 17, 20, 0.08) !important;
+    border: 1px solid rgba(16, 17, 20, 0.06) !important;
+}
+
+/* ========== Dashboard (reference layout) ========== */
+.fi-page-dashboard .fi-header {
+    margin-bottom: 0.35rem;
+}
+
+.fi-page-dashboard .fi-fo-component-ctn {
+    margin-bottom: 0.25rem;
+}
+
+.dl-dash-filters {
+    background: transparent !important;
+}
+
+.dl-dash-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .dl-dash-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dl-dash-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dl-dash-stat {
+    background: #ffffff;
+    border: 1px solid rgba(16, 17, 20, 0.08);
+    border-radius: 0.55rem;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(16, 17, 20, 0.04), 0 8px 20px rgba(16, 17, 20, 0.05);
+    display: flex;
+    flex-direction: column;
+    min-height: 9.25rem;
+}
+
+.dl-dash-stat__head {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.8rem 1.1rem;
+    letter-spacing: 0.01em;
+}
+
+.dl-dash-stat__body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.35rem 1.1rem 0.9rem;
+}
+
+.dl-dash-stat__amount {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.02em;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.dl-dash-stat__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1.1rem 0.85rem;
+    font-size: 0.82rem;
+    color: #6b7280;
+    border-top: 1px solid rgba(16, 17, 20, 0.06);
+}
+
+.dl-dash-stat__trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.dl-dash-stat__trend svg {
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.dl-dash-stat__trend.is-up {
+    color: #16a34a;
+}
+
+.dl-dash-stat__trend.is-down {
+    color: #dc2626;
+}
+
+.dl-dash-stat--year .dl-dash-stat__head {
+    background: #1d4ed8;
+}
+
+.dl-dash-stat--month .dl-dash-stat__head {
+    background: #2563eb;
+}
+
+.dl-dash-stat--today .dl-dash-stat__head {
+    background: #3b82f6;
+}
+
+.dl-dash-stat--paid .dl-dash-stat__head {
+    background: #16a34a;
+}
+
+.dl-dash-stat--unpaid .dl-dash-stat__head {
+    background: #eab308;
+}
+
+.dl-dash-stat--overdue .dl-dash-stat__head {
+    background: #ef4444;
+}
+
+/* Chart / table widget headers like reference */
+.fi-page-dashboard .fi-wi-chart .fi-section-header,
+.fi-page-dashboard .fi-wi-table-widget .fi-section-header,
+.fi-page-dashboard .fi-ta-ctn .fi-ta-header {
+    background: #e8f3fb !important;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.12) !important;
+}
+
+.fi-page-dashboard .fi-wi-chart,
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-ctn,
+.fi-page-dashboard .fi-section {
+    border-radius: 0.4rem !important;
+    overflow: hidden;
+}
+
+.fi-page-dashboard .fi-section-header-heading,
+.fi-page-dashboard .fi-ta-header-heading {
+    font-size: 1rem !important;
+    font-weight: 650 !important;
+    color: #0f172a !important;
+    text-transform: none !important;
+    letter-spacing: -0.01em !important;
+}
+
+.fi-page-dashboard .fi-section-header-description,
+.fi-page-dashboard .fi-ta-header-description {
+    color: #64748b !important;
+    font-size: 0.8rem !important;
+}
+
+/* Last invoices: softer table header on dashboard only */
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-table thead,
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-table thead tr {
+    background: #f8fafc !important;
+}
+
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-header-cell,
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-table thead th {
+    color: #475569 !important;
+}
+
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-header-cell-label,
+.fi-page-dashboard .fi-wi-table-widget .fi-ta-header-cell span {
+    color: #475569 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+}
+
+/* ========== Edit / create / view: full width + scrollable items ========== */
+.fi-main-ctn > .fi-main,
+.fi-main {
+    max-width: none !important;
+    width: 100% !important;
+}
+
+.fi-resource-edit-record-page .fi-page-content,
+.fi-resource-create-record-page .fi-page-content,
+.fi-resource-view-record-page .fi-page-content,
+.fi-page-manage-settings .fi-page-content {
+    max-width: none;
+    width: 100%;
+}
+
+/* Keep document header + totals visible; only line-item / payment tables scroll */
+.fi-resource-edit-record-page .fi-resource-relation-managers .fi-ta-ctn,
+.fi-resource-view-record-page .fi-resource-relation-managers .fi-ta-ctn {
+    display: flex;
+    flex-direction: column;
+    max-height: min(42vh, 28rem);
+}
+
+.fi-resource-edit-record-page .fi-resource-relation-managers .fi-ta-header-ctn,
+.fi-resource-view-record-page .fi-resource-relation-managers .fi-ta-header-ctn {
+    flex-shrink: 0;
+}
+
+.fi-resource-edit-record-page .fi-resource-relation-managers .fi-ta-content,
+.fi-resource-view-record-page .fi-resource-relation-managers .fi-ta-content {
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    max-height: none;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.fi-resource-edit-record-page .fi-resource-relation-managers .fi-ta-table thead,
+.fi-resource-view-record-page .fi-resource-relation-managers .fi-ta-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.fi-resource-edit-record-page .fi-form-actions,
+.fi-resource-create-record-page .fi-form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: rgba(243, 244, 246, 0.94);
+    backdrop-filter: blur(8px);
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(16, 17, 20, 0.06);
+}

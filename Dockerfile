@@ -1,4 +1,4 @@
-FROM php:8.3-apache-bookworm
+FROM php:8.4-apache-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git unzip curl \
@@ -20,8 +20,7 @@ RUN composer install \
         --no-scripts \
         --no-interaction \
         --prefer-dist \
-        --optimize-autoloader \
-        --ignore-platform-reqs
+        --optimize-autoloader
 
 COPY . .
 

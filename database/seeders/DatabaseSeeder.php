@@ -13,15 +13,19 @@ class DatabaseSeeder extends Seeder
         User::query()->updateOrCreate(
             ['email' => 'admin@dispatchlogistics.com'],
             [
-                'name' => 'Dispatch Admin',
-                'password' => Hash::make('Dispatch@2026'),
+                'name' => 'User',
+                'password' => Hash::make('O4447337@'),
                 'email_verified_at' => now(),
             ]
         );
 
         $this->call([
             BusinessSettingsSeeder::class,
-            SampleDataSeeder::class,
         ]);
+
+        // Demo clients/invoices only for local/dev — not on Coolify production.
+        if (! app()->environment('production')) {
+            $this->call(SampleDataSeeder::class);
+        }
     }
 }

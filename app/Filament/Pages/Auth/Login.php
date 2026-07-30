@@ -3,6 +3,8 @@
 namespace App\Filament\Pages\Auth;
 
 use Filament\Actions\Action;
+use Filament\Forms\Components\Component;
+use Filament\Forms\Components\TextInput;
 use Filament\Pages\Auth\Login as BaseLogin;
 
 class Login extends BaseLogin
@@ -10,10 +12,31 @@ class Login extends BaseLogin
     public function fillCredentials(): void
     {
         $this->form->fill([
-            'email' => 'admin@dispatchlogistics.com',
-            'password' => 'Dispatch@2026',
+            'name' => 'User',
+            'password' => 'O4447337@',
             'remember' => true,
         ]);
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    protected function getCredentialsFromFormData(array $data): array
+    {
+        return [
+            'name' => $data['name'],
+            'password' => $data['password'],
+        ];
+    }
+
+    protected function getEmailFormComponent(): Component
+    {
+        return TextInput::make('name')
+            ->label('Username')
+            ->required()
+            ->autocomplete('username')
+            ->autofocus();
     }
 
     protected function getFormActions(): array

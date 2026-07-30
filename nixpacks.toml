@@ -29,23 +29,25 @@ cmd = "/assets/start.sh"
 [staticAssets]
 "start.sh" = '''
 #!/bin/bash
-set -e
 
 cd /app
+
+export PORT="${PORT:-80}"
 
 chown -R www-data:www-data /app/storage /app/bootstrap/cache || true
 chmod -R 775 /app/storage /app/bootstrap/cache || true
 
-# Create DB tables + admin user without needing Coolify Terminal
-php artisan migrate --force
-php artisan db:seed --force
+# Do not kill the container if DB migrate fails — still start Nginx so we can debug.
+php artisan migrate --force || echo "[Dispatch] migrate failed — check DB_* env vars"
+php artisan db:seed --force || echo "[Dispatch] seed failed"
 php artisan storage:link || true
-php artisan config:cache || true
-php artisan route:cache || true
-php artisan view:cache || true
+php artisan config:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
 
 node /assets/scripts/prestart.mjs /assets/nginx.template.conf /etc/nginx.conf
 
+echo "[Dispatch] Starting on PORT=${PORT}"
 supervisord -c /etc/supervisord.conf -n
 '''
 

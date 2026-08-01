@@ -9,13 +9,14 @@ chmod -R 775 storage bootstrap/cache || true
 
 echo "[Dispatch] DB_HOST=${DB_HOST:-not-set}"
 
+php artisan config:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
+
 # Keep the web server up even if DB is briefly unavailable.
 php artisan migrate --force || echo "[Dispatch] migrate failed — check DB host/network in Coolify"
 php artisan db:seed --force || echo "[Dispatch] seed failed"
 php artisan storage:link || true
-php artisan config:clear || true
-php artisan route:clear || true
-php artisan view:clear || true
 
 echo "[Dispatch] Starting Apache on port 80"
 exec apache2-foreground
